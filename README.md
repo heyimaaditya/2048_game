@@ -99,11 +99,3 @@ The project is organized into a standard React application structure:
     *   **Correct Logic:** The implementation of `slideAndMergeLine` follows the standard 2048 merging rules more accurately than the initial reference code.
     *   **Safe Tile Addition:** `addRandomTileToBoard` checks for empty cells before attempting to place a tile.
 
-## Acknowledgements
-
-*   Original game concept by Gabriele Cirulli.
-*   Code structure and initial ideas inspired by the provided reference code.
-
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file (if you add one) for details.
