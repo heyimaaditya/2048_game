@@ -1,70 +1,109 @@
-# Getting Started with Create React App
+# React 2048 Game
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A web-based implementation of the popular 2048 puzzle game, built using React and plain JavaScript. This project follows the specific requirements and guidelines provided, focusing on core gameplay logic, a responsive UI, extensibility, and robustness.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+*   **Classic 2048 Gameplay:** Implement the core mechanics of sliding and merging tiles.
+*   **Arrow Key Controls:** Intuitive player interaction using keyboard arrow keys.
+*   **Dynamic Board Display:** The game board updates visually after each valid move.
+*   **Random Tile Generation:** New 2 or 4 tiles appear in empty cells after a successful move.
+*   **Score Tracking:** Displays the current score, updated upon tile merges.
+*   **Best Score:** Tracks and displays the highest score achieved, persisted in local storage.
+*   **Win Condition:** Game ends with a "You Win!" message upon reaching the 2048 tile.
+*   **Game Over Condition:** Game ends with a "Game Over!" message when no more moves are possible.
+*   **New Game Functionality:** A button to easily restart the game at any time.
+*   **Basic Responsive UI:** Layout adjusts to different screen sizes.
 
-### `npm start`
+## Technologies Used
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+*   **React:** The JavaScript library for building the user interface.
+*   **JavaScript:** The primary programming language for game logic and component behavior.
+*   **HTML:** The structure of the web page.
+*   **CSS:** Styling for the visual presentation and basic responsiveness.
+*   **react-icons:** Used for icons (though the arrow icon wasn't strictly used in the final code, the dependency might be present from setup).
+*   **uuid:** Used for generating unique IDs (though tile keys were simplified to index-based in the final code, the dependency might be present).
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Setup and Installation
 
-### `npm test`
+1.  **Clone the repository** (or create the project structure manually as described previously).
+    ```bash
+    # If you cloned:
+    git clone <repository-url>
+    cd my-2048-game-js
+    ```
+    ```bash
+    # If creating manually :
+    npx create-react-app my-2048-game-js
+    cd my-2048-game-js
+    npm install react-icons uuid # or yarn add react-icons uuid
+    # Then manually create/copy the src folder structure and files.
+    ```
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    # or
+    yarn install
+    ```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## How to Run
 
-### `npm run build`
+1.  Start the development server from the project directory:
+    ```bash
+    npm start
+    # or
+    yarn start
+    ```
+2.  The game will typically open in your browser at `http://localhost:3000`.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## How to Play
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1.  Use the **Arrow Keys** on your keyboard to move the tiles (Up, Down, Left, Right).
+2.  When two tiles with the same number touch while sliding, they **merge** into a single tile with the sum of their values.
+3.  Your **Score** increases by the value of the new tile created during a merge.
+4.  Aim to create a tile with the number **2048**.
+5.  The game ends if you reach the 2048 tile (**You Win!**) or if the board is full and there are no possible moves left (**Game Over!**).
+6.  Click the **"New Game"** button to start over.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Code Structure
 
-### `npm run eject`
+The project is organized into a standard React application structure:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+*   `public/`: Public assets (like `index.html`).
+*   `src/`: Contains the core application code.
+    *   `components/`: Reusable React components:
+        *   `Footer.js`: Displays game instructions.
+        *   `GameBoard.js`: Manages the game board state, handles input, and renders tiles.
+        *   `GameOver.js`: Displays the game over or win message overlay.
+        *   `Header.js`: Displays scores and the new game button.
+        *   `Tile.js`: Represents a single tile on the board.
+    *   `utils/`: Utility functions and custom hooks:
+        *   `gameLogic.js`: Contains the core game logic (board initialization, moves, merging, win/loss checks, random tile generation).
+        *   `useLocalStorage.js`: A custom React hook for interacting with browser local storage (used for the best score).
+    *   `App.js`: The main application component, holds top-level state like score and board size.
+    *   `App.css`: Styling specific to the main `App` component layout and game elements.
+    *   `index.js`: The entry point for the React application.
+    *   `index.css`: Basic global styles for the body and root elements.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Development Guidelines Implementation
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+*   **User-Friendly and Responsive UI:** Basic responsiveness is included via CSS. The UI is laid out clearly with scores, board, and game status messages.
+*   **Extensibility:**
+    *   Core game logic is separated into pure functions in `gameLogic.js`, making it easier to understand and modify specific game rules (e.g., tile generation probabilities, winning tile value).
+    *   The `sideLength` state is handled appropriately to dynamically size the board grid, allowing for different grid sizes with minimal code changes (primarily updating `sideLength` and ensuring CSS scales correctly).
+    *   Components are modular and handle their specific parts of the UI.
+*   **Robustness:**
+    *   **Moves Without Shifts:** The `handleMove` function in `GameBoard.js` checks if the board state changes after a move before adding a new tile, preventing the board from filling up unnecessarily if a move doesn't result in any tile movement or merge.
+    *   **Detecting Game Over:** The `checkForLoss` utility accurately determines the game over condition by checking if the board is full *and* if any merges are possible.
+    *   **Detecting Win:** The `checkForWin` utility accurately detects if the 2048 tile has been created.
+    *   **Correct Logic:** The implementation of `slideAndMergeLine` follows the standard 2048 merging rules more accurately than the initial reference code.
+    *   **Safe Tile Addition:** `addRandomTileToBoard` checks for empty cells before attempting to place a tile.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Acknowledgements
 
-## Learn More
+*   Original game concept by Gabriele Cirulli.
+*   Code structure and initial ideas inspired by the provided reference code.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## License
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file (if you add one) for details.
