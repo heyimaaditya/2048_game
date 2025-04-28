@@ -26,7 +26,7 @@ A web-based implementation of the popular 2048 puzzle game, built using React an
 
 ## Setup and Installation
 
-1.  **Clone the repository** (or create the project structure manually as described previously).
+1.  **Clone the repository** .
     ```bash
     # If you cloned:
     git clone <repository-url>
@@ -96,6 +96,6 @@ The project is organized into a standard React application structure:
     *   **Moves Without Shifts:** The `handleMove` function in `GameBoard.js` checks if the board state changes after a move before adding a new tile, preventing the board from filling up unnecessarily if a move doesn't result in any tile movement or merge.
     *   **Detecting Game Over:** The `checkForLoss` utility accurately determines the game over condition by checking if the board is full *and* if any merges are possible.
     *   **Detecting Win:** The `checkForWin` utility accurately detects if the 2048 tile has been created.
-    *   **Correct Logic:** The implementation of `slideAndMergeLine` follows the standard 2048 merging rules more accurately than the initial reference code.
+    *   **Correct Logic:** The implementation of `slideAndMergeLine` follows the standard 2048 merging rules more accurately.
     *   **Safe Tile Addition:** `addRandomTileToBoard` checks for empty cells before attempting to place a tile.
 
